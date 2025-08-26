@@ -30,6 +30,10 @@ docker compose -f docker-compose.yml up -d --scale spark-worker=2
 docker exec spark-master spark-submit --deploy-mode client ./jobs/treinamento.py
 ```
 
+<img width="499" height="845" alt="Captura de tela 2025-08-26 121513" src="https://github.com/user-attachments/assets/00a9ebdc-d4a4-4f43-9b4d-5ddb8e8e297d" />
+*Como mostra o resultado do treinamento, o erro de reconstrução do modelo LSTM é significativamente maior para os dados anômalos (0.159) em comparação com os dados normais (0.001), indicando que o modelo aprendeu a identificar as anomalias com sucesso.*
+
+
 ### No container spark-master, abra um shell para receber dados em tempo real
 ```bash
 nc -lk 9999
@@ -49,5 +53,6 @@ docker exec spark-master spark-submit --deploy-mode client ./jobs/deploy.py
 {"temperatura": 26.2, "umidade": 62.1, "qualidade_do_ar": 75, "luz": 629.0, "som": 450.0} #anômalo
 
 
-
+<img width="1699" height="477" alt="Captura de tela 2025-08-26 135936" src="https://github.com/user-attachments/assets/2c9a6e51-d0a6-450c-ae67-aecadbc0fb1c" />
+*A imagem demonstra o sistema em operação, onde os dados enviados via *nc* são processados em tempo real, e o modelo classifica cada registro como *normal* ou *anomalia*.*
 
